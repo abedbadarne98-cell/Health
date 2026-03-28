@@ -34,6 +34,10 @@
             margin: 10px 0;
             border-radius: 10px;
         }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 
@@ -52,26 +56,39 @@
 </nav>
 
 <section>
+
+    <div class="card">
+        <h2>🏋️ Workouts</h2>
+
+        <input type="text" id="workoutInput" placeholder="Enter workout (e.g. Push-ups)">
+        <br>
+        <button onclick="addWorkout()">Add Workout</button>
+
+        <ul id="workoutList"></ul>
+    </div>
+
     <div class="card">
         <h2>🥗 Nutrition</h2>
         <p>Track your calories and healthy meals.</p>
     </div>
 
-    <div class="card">
-        <h2>🏋️ Workouts</h2>
-        <p>Log your exercises and stay fit.</p>
-    </div>
-
-    <div class="card">
-        <h2>🧠 Mental Health</h2>
-        <p>Write your thoughts and track your mood.</p>
-    </div>
-
-    <div class="card">
-        <h2>📚 Health Blog</h2>
-        <p>Read useful health tips and guides.</p>
-    </div>
 </section>
+
+<script>
+function addWorkout() {
+    const input = document.getElementById("workoutInput");
+    const value = input.value;
+
+    if (value === "") return;
+
+    const list = document.getElementById("workoutList");
+    const li = document.createElement("li");
+    li.textContent = value;
+    list.appendChild(li);
+
+    input.value = "";
+}
+</script>
 
 </body>
 </html>
