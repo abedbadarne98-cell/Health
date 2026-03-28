@@ -75,19 +75,60 @@
 </section>
 
 <script>
+<script>
+function getWorkouts() {
+    return JSON.parse(localStorage.getItem("workouts") || "[]");
+}
+
+function saveWorkouts(workouts) {
+    localStorage.setItem("workouts", JSON.stringify(workouts));
+}
+
+function renderWorkouts() {
+    const list = document.getElementById("workoutList");
+    list.innerHTML = "";
+
+    const workouts = getWorkouts();
+
+    workouts.forEach((w, index) => {
+        const li = document.createElement("li");
+        li.textContent = w + " ";
+
+        const btn = document.createElement("button");
+        btn.textContent = "❌";
+        btn.onclick = function () {
+            deleteWorkout(index);
+        };
+
+        li.appendChild(btn);
+        list.appendChild(li);
+    });
+}
+
 function addWorkout() {
     const input = document.getElementById("workoutInput");
     const value = input.value;
 
-    if (value === "") return;
+    if (!value) return;
 
-    const list = document.getElementById("workoutList");
-    const li = document.createElement("li");
-    li.textContent = value;
-    list.appendChild(li);
+    const workouts = getWorkouts();
+    workouts.push(value);
+
+    saveWorkouts(workouts);
 
     input.value = "";
+    renderWorkouts();
 }
+
+function deleteWorkout(index) {
+    const workouts = getWorkouts();
+    workouts.splice(index, 1);
+    saveWorkouts(workouts);
+    renderWorkouts();
+}
+
+window.onload = renderWorkouts;
+</script>
 </script>
 
 </body>
